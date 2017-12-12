@@ -1,9 +1,9 @@
 // Server Scripts Go Below
 'use strict';
 
-const express = required('express')
-const cors = required('cors') // Cors helps to resolve cross source issues
-const pg = required('pg')
+const express = require('express')
+const cors = require('cors') // Cors helps to resolve cross source issues
+const pg = require('pg')
 
 const app = express();
 const PORT = process.env.PORT;
