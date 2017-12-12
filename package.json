@@ -1,0 +1,25 @@
+{
+  "name": "book-list-server",
+  "version": "1.0.0",
+  "description": "Backend for Book App using Heroku",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DL-JW-Book-App-Week-3/Book-List-Server.git"
+  },
+  "author": "Daniel Logerstedt & Jamie Williams",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DL-JW-Book-App-Week-3/Book-List-Server/issues"
+  },
+  "homepage": "https://github.com/DL-JW-Book-App-Week-3/Book-List-Server#readme",
+  "dependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "pg": "^7.4.0"
+  }
+}
