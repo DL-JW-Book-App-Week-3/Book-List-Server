@@ -16,7 +16,12 @@ client.on('error', err => console.error(err));
 
 app.use(cors());
 
-app.get('/', (req, res) => res.send('Testing 1, 2, 3'));
+app.get('/', (req, res) => res.send('Testing 1, 2, 3...'));
+app.get('api/v1/books', (req, res) => {
+  client.query(`SELECT book_id, title, author, image_url, isbn FROM books;`)
+    .then(result => res.send(result.rows))
+    .catch(console.error)
+})
 
 loadDB();
 
@@ -31,14 +36,14 @@ app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
 ////////////////////////////////////////////////////////////////
 
 function loadBooks() {
-  client.query('SELECT COUNT(*) FROM books_app')
+  client.query('SELECT COUNT(*) FROM books')
     .then(result => {
       if(!parseInt(result.rows[0].count)) {
         fs.readFile('./books.json', 'utf8', (err, fd) => {
           JSON.parse(fd).forEach(ele => {
             client.query(`
               INSERT INTO
-              books_app(title, author, isbn, image_url, description)
+              books(title, author, isbn, image_url, description)
               SELECT $1, $2, $3, $4, $5;
               `,
               [ele.title, ele.author, ele.isbn, ele.image_url, ele.description]
@@ -53,7 +58,7 @@ function loadBooks() {
 function loadDB() {
   client.query(`
     CREATE TABLE IF NOT EXISTS
-    books_app (
+    books (
     book_id SERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     author VARCHAR(255) NOT NULL,
