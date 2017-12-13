@@ -22,6 +22,12 @@ app.get('/api/v1/books', (req, res) => {
     .then(result => res.send(result.rows))
     .catch(console.error)
 })
+app.get('/api/v1/:id', (req, res) => {
+  client.query(`SELECT title, author, image_url, isbn, description FROM books
+                WHERE book_id=$1`, [req.params.id])
+    .then(result => res.send(result.rows))
+    .catch(console.error)
+})
 
 loadDB();
 
