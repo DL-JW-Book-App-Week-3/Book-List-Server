@@ -18,8 +18,14 @@ app.use(cors());
 
 app.get('/', (req, res) => res.send('Testing 1, 2, 3...'));
 app.get('/api/v1/books', (req, res) => {
-  client.query(`SELECT book_id, title, author, image_url, isbn FROM books;`)
+  client.query(`SELECT book_id, title, author, image_url FROM books;`)
     .then(result => res.send(result.rows))
+    .catch(console.error)
+})
+app.get('/api/v1/books/:id', (req, res) => {
+  client.query(`SELECT * FROM books
+                WHERE book_id=$1`, [req.params.id])
+    .then(result => res.send(result.rows[0]))
     .catch(console.error)
 })
 
