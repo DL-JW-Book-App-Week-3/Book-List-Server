@@ -29,6 +29,36 @@ app.get('/api/v1/books/:id', (req, res) => {
     .catch(console.error)
 })
 
+app.post('/api/v1/books', (req, res) => {
+  let {title, author, image_url, isbn, description} = req.body
+  client.query(
+    `INSERT INTO books(title, author, image_url, isbn, description)
+     VALUES($1, $2, $3, $4 $5) ON CONFLICT DO NOTHING`,
+    [title, author, image_url, isbn, description]
+  )
+    .then(() => res.send('Insert Complete'))
+    .catch(console.error);
+});
+
+app.put('/api/v1/books/:id', (req, res) => {
+  let {title, author, image_url, isbn, description} = req.body
+  client.query(`
+    UPDATE books
+    SET title=$1, author=$2, image_url=$3, isbn=$4, description=$5
+    WHERE book_id=$6
+    `,
+    [title, author, image_url, isbn, description, req.params.id]
+  )
+    .then(() => res.send('Update Complete'))
+    .catch(console.error);
+})
+
+app.delete('/api/v1/books/:id', (req, res) => {
+  client.query(`DELETE FROM books WHERE book_id=${req.params.id}`)
+    .then(() => res.send('Record Deleted'))
+    .catch(console.error);
+});
+
 loadDB();
 
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
