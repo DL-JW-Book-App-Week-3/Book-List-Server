@@ -18,8 +18,10 @@
   },
   "homepage": "https://github.com/DL-JW-Book-App-Week-3/Book-List-Server#readme",
   "dependencies": {
+    "body-parser": "^1.18.2",
     "cors": "^2.8.4",
     "express": "^4.16.2",
-    "pg": "^7.4.0"
+    "pg": "^7.4.0",
+    "superagent": "^3.8.2"
   }
 }
